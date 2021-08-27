@@ -21,6 +21,7 @@ public class QuickSort {
         sort(scores, 0, scores.length);
 
         printArray(scores);
+        System.out.println("binary search: " + binarySearch(scores, 0, scores.length, 3.1));
     }
 
     private static void sort(Score[] scores, int from, int until) {
@@ -62,7 +63,23 @@ public class QuickSort {
         scores[to] = score1;
         scores[from] = score2;
     }
-    
+
+    private static int binarySearch(Score[] scores, int from, int until, double searching) {
+        System.out.println("buscando em " + from + " ateh " + until);
+        if(from > until){//there is no searching number
+            return -1;
+        }
+        int middle = (from + until) / 2;
+        Score score = scores[middle];
+
+        if (searching == score.getValue()) {
+            return middle;
+        }
+        if (searching < score.getValue()) {
+            return binarySearch(scores, from, middle - 1, searching);//-1 coz we know is not in middle
+        }
+        return binarySearch(scores, middle + 1, until, searching);//+1 coz we know is not in middle
+    }
 
     private static void printArray(Score[] scores) {
         for (Score score : scores) {
